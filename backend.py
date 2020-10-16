@@ -38,7 +38,15 @@ def search(title='', author='', year='', isbn=''):
 def delete(id):
     conn = sqlite3.connect("books.db")
     cur = conn.cursor()
-    cur.execute("DELETE FROM book WHERE id = ?", id)
+    cur.execute("DELETE FROM book WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+
+
+def update(id, title, author, year, isbn):
+    conn = sqlite3.connect("books.db")
+    cur = conn.cursor()
+    cur.execute("UPDATE book SET title-=?, author=?, year=?, isbn=? WHERE id=?", (title, author, year, isbn, id))
     conn.commit()
     conn.close()
 
